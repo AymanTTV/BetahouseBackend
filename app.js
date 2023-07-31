@@ -10,9 +10,14 @@ app.use(cors());
 const usersRoutes = require('./route/usersRoutes');
 const guriyahaRoutes = require('./route/guriyahaRoutes');
 const imagesRoutes = require('./route/imagesRoutes');
+const serviceRoute= require('./routes/service-route');
+const ourClientRoute= require('./routes/ourclient-route');
 const xogtaShirkadaRoutes = require('./route/xogtaShirkadaRoutes');
 const aboutRoutes = require('./route/aboutRoutes');
+
 const contactFormRoutes = require('./route/contactFormRoutes');
+const loginRoute=require('./routes/login-route');
+
 
 // Db Connection
 const database = () => {
@@ -38,9 +43,12 @@ database();
 app.use('/users', usersRoutes);
 app.use('/guriyaha', guriyahaRoutes);
 app.use('/images', imagesRoutes);
+app.use('/service',serviceRoute);
+app.use('/client',ourClientRoute);
 app.use('/xogtaShirkada', xogtaShirkadaRoutes);
 app.use('/about', aboutRoutes);
 app.use('/contactForm', contactFormRoutes);
+app.use('/login',loginRoute);
 
 // Custom route to display all available routes
 app.get('/', (req, res) => {
