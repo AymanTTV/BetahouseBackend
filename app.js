@@ -10,13 +10,13 @@ app.use(cors());
 const usersRoutes = require('./route/usersRoutes');
 const guriyahaRoutes = require('./route/guriyahaRoutes');
 const imagesRoutes = require('./route/imagesRoutes');
-const serviceRoute= require('./routes/service-route');
-const ourClientRoute= require('./routes/ourclient-route');
+const serviceRoute= require('./route/service-route');
+const ourClientRoute= require('./route/ourclient-route');
 const xogtaShirkadaRoutes = require('./route/xogtaShirkadaRoutes');
 const aboutRoutes = require('./route/aboutRoutes');
-
+const userRoute=require('./route/user-route');
 const contactFormRoutes = require('./route/contactFormRoutes');
-const loginRoute=require('./routes/login-route');
+const loginRoute=require('./route/login-route');
 
 
 // Db Connection
@@ -45,8 +45,10 @@ app.use('/guriyaha', guriyahaRoutes);
 app.use('/images', imagesRoutes);
 app.use('/service',serviceRoute);
 app.use('/client',ourClientRoute);
+
 app.use('/xogtaShirkada', xogtaShirkadaRoutes);
 app.use('/about', aboutRoutes);
+app.use('/users',userRoute);
 app.use('/contactForm', contactFormRoutes);
 app.use('/login',loginRoute);
 
