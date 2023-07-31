@@ -62,9 +62,38 @@ const Put = async (req, res, ) => {
         res.status(400).send(error.message);
     }
 };
+
+const Delete = async (req, res) => {
+    try {
+        const { id } = req.params;
+        // Delete specific data by ID
+        const deletedData = await clientModel.findByIdAndDelete(id);
+        if (!deletedData) {
+            return res.status(404).send({
+                status: false,
+                message: 'Data not found',
+            });
+        }
+        res.status(200).send({
+            status: true,
+            message: 'Successfully deleted',
+            data: deletedData,
+        });
+    } catch (error) {
+        res.status(500).send({
+            status: false,
+            message: 'Failed to delete data',
+            error: error.message,
+        });
+    }
+};
+  
 module.exports = {
     get,
     getById,
     Post,
     Put,
+    Delete, // Add the delete function to the exports
 };
+  
+
