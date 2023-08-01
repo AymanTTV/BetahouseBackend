@@ -3,18 +3,18 @@ const router = express.Router();
 const imagesController = require('../controllers/imagesController');
 
 // POST
-router.post('/create', imagesController.createImage);
+router.post('/', imagesController.createImage);
 
 // GET - Get all Images
-router.get('/get', imagesController.getImages);
+router.get('/', imagesController.getImages);
 
 // GET - Get an Image by ID
-router.get('/get/:id', imagesController.getImageById);
+router.get('/:id', imagesController.getImageById);
 
 // PUT
-router.put('/update/:id', imagesController.updateImage);
+router.put('/:id', imagesController.updateImage);
 
 // DELETE
-router.delete('/delete/:id', imagesController.deleteImage);
+router.delete('/:id', imagesController.deleteImage);
 
 module.exports = router;

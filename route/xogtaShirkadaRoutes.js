@@ -3,18 +3,18 @@ const router = express.Router();
 const xogtaShirkadaController = require('../controllers/xogtaShirkadaController');
 
 // GET /xogtaShirkada
-router.get('/get/', xogtaShirkadaController.getXogtaShirkada);
+router.get('/', xogtaShirkadaController.getXogtaShirkada);
 
 // GET /xogtaShirkada/:id
-router.get('/get/:id', xogtaShirkadaController.getXogtaShirkadaById);
+router.get('/:id', xogtaShirkadaController.getXogtaShirkadaById);
 
 // POST /xogtaShirkada
-router.post('/create', xogtaShirkadaController.createXogtaShirkada);
+router.post('/', xogtaShirkadaController.createXogtaShirkada);
 
 // PUT /xogtaShirkada/:id
-router.put('/update/:id', xogtaShirkadaController.updateXogtaShirkada);
+router.put('/:id', xogtaShirkadaController.updateXogtaShirkada);
 
 // DELETE /xogtaShirkada/:id
-router.delete('/delete/:id', xogtaShirkadaController.deleteXogtaShirkada);
+router.delete('/:id', xogtaShirkadaController.deleteXogtaShirkada);
 
 module.exports = router;
