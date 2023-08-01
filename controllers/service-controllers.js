@@ -1,4 +1,4 @@
-const {serviceModel } = require('../models/server-model');
+const {serviceModel } = require('../models/service-model');
 const { servicevalidation } = require('../validations/server-validation');
 
 const get = async (req, res, ) => {
