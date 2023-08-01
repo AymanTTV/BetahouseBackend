@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const guriyahaController = require('../controllers/guriyahaController');
-const multer = require('multer');
 
-const upload = multer();
+
+
 
 // GET all Guriyaha entries
 router.get('/', guriyahaController.getAllGuriyaha);
@@ -12,7 +12,7 @@ router.get('/', guriyahaController.getAllGuriyaha);
 router.get('/:id', guriyahaController.getGuriyahaById);
 
 // POST
-router.post('/', upload.single('imagePreview'), guriyahaController.createGuriyaha);
+router.post('/', guriyahaController.createGuriyaha);
 
 // PUT
 router.put('/:id', guriyahaController.updateGuriyaha);

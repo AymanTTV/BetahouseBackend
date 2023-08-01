@@ -3,28 +3,11 @@ const Guriyaha = require('../models/guriyahaModel');
 // POST
 exports.createGuriyaha = async (req, res) => {
     try {
-        const { type, area, address, age, rent, deposit, parking, isAvailable, rooms, musqulaha, masterRoom, faahfaahin, user, imagePreview } = req.body;
-        const guriyaha = new Guriyaha({
-            type,
-            area,
-            address,
-            age,
-            rent,
-            deposit,
-            parking,
-            isAvailable,
-            rooms,
-            musqulaha,
-            masterRoom,
-            faahfaahin,
-            user,
-            imagePreview,
-        });
-
+        const guriyaha = new Guriyaha(req.body);
         const savedGuriyaha = await guriyaha.save();
         res.json(savedGuriyaha);
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.status(500).send('Error creating Guriyaha');
     }
 };
@@ -33,7 +16,7 @@ exports.createGuriyaha = async (req, res) => {
 exports.updateGuriyaha = async (req, res) => {
     try {
         const updatedGuriyaha = await Guriyaha.findOneAndUpdate(
-            { id: req.params.id },
+            { _id: req.params.id },
             req.body,
             { new: true }
         );
@@ -42,7 +25,7 @@ exports.updateGuriyaha = async (req, res) => {
         }
         res.json(updatedGuriyaha);
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.status(500).send('Error updating Guriyaha');
     }
 };
@@ -53,7 +36,7 @@ exports.getAllGuriyaha = async (req, res) => {
         const guriyahaList = await Guriyaha.find();
         res.json(guriyahaList);
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.status(500).send('Error getting Guriyaha entries');
     }
 };
@@ -61,13 +44,13 @@ exports.getAllGuriyaha = async (req, res) => {
 // GET a single Guriyaha entry by ID
 exports.getGuriyahaById = async (req, res) => {
     try {
-        const guriyaha = await Guriyaha.findOne({ id: req.params.id });
+        const guriyaha = await Guriyaha.findById(req.params.id);
         if (!guriyaha) {
             return res.send('Guriyaha entry not found');
         }
         res.json(guriyaha);
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.status(500).send('Error getting Guriyaha entry');
     }
 };
@@ -75,13 +58,13 @@ exports.getGuriyahaById = async (req, res) => {
 // DELETE
 exports.deleteGuriyaha = async (req, res) => {
     try {
-        const deletedGuriyaha = await Guriyaha.findOneAndDelete({ id: req.params.id });
+        const deletedGuriyaha = await Guriyaha.findOneAndDelete({ _id: req.params.id });
         if (!deletedGuriyaha) {
             return res.send('Guriyaha not found');
         }
         res.send('Guriyaha deleted successfully');
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.status(500).send('Error deleting Guriyaha');
     }
 };

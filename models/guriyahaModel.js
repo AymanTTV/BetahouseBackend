@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
 
 const guriyahaSchema = new mongoose.Schema({
-    id: {
-        type: Number,
-        required: true,
-        unique: true,
-    },
     type: String,
     area: String,
     address: String,
@@ -28,6 +23,6 @@ const guriyahaSchema = new mongoose.Schema({
     },
 });
 
-const Guriyaha = mongoose.model('Guriyaha', guriyahaSchema, 'guriyaha');
+const Guriyaha = mongoose.model('Guriyaha', guriyahaSchema);
 
 module.exports = Guriyaha;
