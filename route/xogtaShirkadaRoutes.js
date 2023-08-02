@@ -2,19 +2,19 @@ const express = require('express');
 const router = express.Router();
 const xogtaShirkadaController = require('../controllers/xogtaShirkadaController');
 
-// GET /xogtaShirkada
+// GET all xogtaShirkada
 router.get('/', xogtaShirkadaController.getXogtaShirkada);
 
-// GET /xogtaShirkada/:id
+// GET xogtaShirkada by ID
 router.get('/:id', xogtaShirkadaController.getXogtaShirkadaById);
 
-// POST /xogtaShirkada
+// POST new xogtaShirkada
 router.post('/', xogtaShirkadaController.createXogtaShirkada);
 
-// PUT /xogtaShirkada/:id
+// PUT update xogtaShirkada
 router.put('/:id', xogtaShirkadaController.updateXogtaShirkada);
 
-// DELETE /xogtaShirkada/:id
+// DELETE xogtaShirkada by ID
 router.delete('/:id', xogtaShirkadaController.deleteXogtaShirkada);
 
 module.exports = router;

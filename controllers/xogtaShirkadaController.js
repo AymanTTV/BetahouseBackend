@@ -1,74 +1,64 @@
 const XogtaShirkada = require('../models/xogtaShirkadaModel');
 
-
-// POST /xogtaShirkada
-const createXogtaShirkada = async (req, res) => {
-    try {
-        const xogtaShirkada = new XogtaShirkada(req.body);
-        const savedXogtaShirkada = await xogtaShirkada.save();
-        res.json(savedXogtaShirkada);
-    } catch (error) {
-        console.log(error);
-        res.status(500).send('Error creating xogtaShirkada');
-    }
-};
-
-// GET /xogtaShirkada
 const getXogtaShirkada = async (req, res) => {
     try {
-        const xogtaShirkada = await XogtaShirkada.find();
-        res.json(xogtaShirkada);
+        const xogtaShirkadaData = await XogtaShirkada.find();
+        res.status(200).json(xogtaShirkadaData);
     } catch (error) {
-        console.log(error);
-        res.status(500).send('Error retrieving xogtaShirkada');
+        res.status(500).json({ message: 'Error fetching xogtaShirkada data' });
     }
 };
 
-// GET /xogtaShirkada/:id
 const getXogtaShirkadaById = async (req, res) => {
+    const { id } = req.params;
     try {
-        const xogtaShirkada = await XogtaShirkada.findOne({ id: req.params.id });
+        const xogtaShirkada = await XogtaShirkada.findById(id);
         if (!xogtaShirkada) {
-            return res.status(404).send('xogtaShirkada not found');
+            return res.status(404).json({ message: 'XogtaShirkada not found' });
         }
-        res.json(xogtaShirkada);
+        res.status(200).json(xogtaShirkada);
     } catch (error) {
-        console.log(error);
-        res.status(500).send('Error retrieving xogtaShirkada');
+        res.status(500).json({ message: 'Error fetching xogtaShirkada by ID' });
     }
 };
 
-
-
-// PUT /xogtaShirkada/:id
-const updateXogtaShirkada = async (req, res) => {
+const createXogtaShirkada = async (req, res) => {
     try {
-        const updatedXogtaShirkada = await XogtaShirkada.findOneAndUpdate(
-            { id: req.params.id },
+        const newXogtaShirkada = new XogtaShirkada(req.body);
+        await newXogtaShirkada.save();
+        res.status(201).json(newXogtaShirkada);
+    } catch (error) {
+        res.status(500).json({ message: 'Error creating xogtaShirkada' });
+    }
+};
+
+const updateXogtaShirkada = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const updatedXogtaShirkada = await XogtaShirkada.findByIdAndUpdate(
+            id,
             req.body,
             { new: true }
         );
         if (!updatedXogtaShirkada) {
-            return res.status(404).send('xogtaShirkada not found');
+            return res.status(404).json({ message: 'XogtaShirkada not found' });
         }
-        res.json(updatedXogtaShirkada);
+        res.status(200).json(updatedXogtaShirkada);
     } catch (error) {
-        console.log(error);
-        res.status(500).send('Error updating xogtaShirkada');
+        res.status(500).json({ message: 'Error updating xogtaShirkada' });
     }
 };
 
-// DELETE /xogtaShirkada/:id
 const deleteXogtaShirkada = async (req, res) => {
+    const { id } = req.params;
     try {
-        const deletedXogtaShirkada = await XogtaShirkada.findOneAndDelete({ id: req.params.id });
+        const deletedXogtaShirkada = await XogtaShirkada.findByIdAndDelete(id);
         if (!deletedXogtaShirkada) {
-            return res.status(404).send('xogtaShirkada not found');
+            return res.status(404).json({ message: 'XogtaShirkada not found' });
         }
-        res.send('xogtaShirkada deleted successfully');
+        res.status(200).json({ message: 'XogtaShirkada deleted successfully' });
     } catch (error) {
-        console.log(error);
-        res.status(500).send('Error deleting xogtaShirkada');
+        res.status(500).json({ message: 'Error deleting xogtaShirkada' });
     }
 };
 
@@ -77,5 +67,5 @@ module.exports = {
     getXogtaShirkadaById,
     createXogtaShirkada,
     updateXogtaShirkada,
-    deleteXogtaShirkada
+    deleteXogtaShirkada,
 };
