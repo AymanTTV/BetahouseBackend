@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 const autoIncrement = require('mongoose-auto-increment');
 
 const aboutSchema = new mongoose.Schema({
+    id: {
+        type: Number,
+        required: true,
+
+    },
     faahfaahinYar: {
         type: String,
     },
@@ -11,13 +16,7 @@ const aboutSchema = new mongoose.Schema({
     },
 });
 
-// Add the auto-increment plugin to the schema
-aboutSchema.plugin(autoIncrement.plugin, {
-    model: 'About',
-    field: 'id', // The field that should be auto-incremented
-    startAt: 1, // The starting value for the auto-increment
-    incrementBy: 1, // The increment value
-});
+
 
 const About = mongoose.model('About', aboutSchema, 'about');
 

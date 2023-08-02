@@ -4,6 +4,7 @@ const xogtaShirkadaSchema = new mongoose.Schema({
     id: {
         type: Number,
         required: true,
+
     },
     location: String,
     logo: {
