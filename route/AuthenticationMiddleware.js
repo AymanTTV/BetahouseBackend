@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { usersModel } = require('../models/usersModel');
 require('dotenv').config();
-const process = require('dotenv').config();
+
 const AuthenticateRoute = (allowedRoles) => {
     return async (req, res, next) => {
         const tokenHeader = req.headers['authorization'];
@@ -12,7 +12,7 @@ const AuthenticateRoute = (allowedRoles) => {
 
         try {
             const tokenVerify = jwt.verify(token, process.env.SECRET_KEY);
-            // console.log ('Testing token', tokenVerify.id);
+
             // Check if user exists
             const user = await usersModel.findById(tokenVerify.id);
             if (!user) return res.status(464).send('User not found');
