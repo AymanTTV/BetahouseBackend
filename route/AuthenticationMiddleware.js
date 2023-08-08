@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { usersModel } = require('../models/usersModel');
 require('dotenv').config();
-
+const process = require('dotenv').config();
 const AuthenticateRoute = (allowedRoles) => {
     return async (req, res, next) => {
         const tokenHeader = req.headers['authorization'];
