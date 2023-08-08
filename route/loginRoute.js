@@ -1,6 +1,8 @@
 const express=require('express');
 const route=express.Router();
-const {login}=require('../controllers/login-controllers');
+const {login}=require('../controllers/loginControllers');
+
+
 //login
 route.post('/',login);
 

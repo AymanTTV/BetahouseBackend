@@ -7,16 +7,16 @@ app.use(express.json());
 app.use(cors());
 
 // Import routes
-const usersRoutes = require('./route/usersRoutes');
+
 const guriyahaRoutes = require('./route/guriyahaRoutes');
 const imagesRoutes = require('./route/imagesRoutes');
 const serviceRoute= require('./route/service-route');
 const ourClientRoute= require('./route/ourclient-route');
 const xogtaShirkadaRoutes = require('./route/xogtaShirkadaRoutes');
 const aboutRoutes = require('./route/aboutRoutes');
-const userRoute=require('./route/user-route');
+const userRoute=require('./route/userRoute');
 const contactFormRoutes = require('./route/contactFormRoutes');
-const loginRoute=require('./route/login-route');
+const loginRoute=require('./route/loginRoute');
 
 
 // Db Connection
@@ -40,7 +40,7 @@ const database = () => {
 database();
 
 // Use the routes
-app.use('/users', usersRoutes);
+
 app.use('/guriyaha', guriyahaRoutes);
 app.use('/images', imagesRoutes);
 app.use('/service',serviceRoute);
