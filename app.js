@@ -3,6 +3,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const app = express();
 
+
 app.use(express.json());
 app.use(cors());
 
@@ -17,6 +18,7 @@ const aboutRoutes = require('./route/aboutRoutes');
 const userRoute=require('./route/userRoute');
 const contactFormRoutes = require('./route/contactFormRoutes');
 const loginRoute=require('./route/loginRoute');
+const AuthenticateRoute = require('./route/AuthenticationMiddleware');
 
 
 // Db Connection
@@ -43,12 +45,12 @@ database();
 
 app.use('/guriyaha', guriyahaRoutes);
 app.use('/images', imagesRoutes);
-app.use('/service',serviceRoute);
+app.use('/service',AuthenticateRoute(['CustomerCare','Admin']),serviceRoute);
 app.use('/client',ourClientRoute);
 
 app.use('/xogtaShirkada', xogtaShirkadaRoutes);
 app.use('/about', aboutRoutes);
-app.use('/users',userRoute);
+app.use('/users',AuthenticateRoute(['Admin']),userRoute);
 app.use('/contactForm', contactFormRoutes);
 app.use('/login',loginRoute);
 
@@ -75,3 +77,4 @@ app.get('/', (req, res) => {
 app.listen(4000, () => {
     console.log('Server is running on port 4000');
 });
+

@@ -8,7 +8,7 @@ const {
     deleteUser
 } = require('../controllers/userController');
 
-const AuthenticateRoute = require('../middleware/AuthenticationMiddleware');
+const AuthenticateRoute = require('../route/AuthenticationMiddleware');
 
 // Get all users
 route.get('/', AuthenticateRoute(['Admin']), getUsers);

@@ -12,7 +12,7 @@ const AuthenticateRoute = (allowedRoles) => {
 
         try {
             const tokenVerify = jwt.verify(token, process.env.SECRET_KEY);
-
+            // console.log ('xohgt aTokenka', tokenVerify.id);
             // Check if user exists
             const user = await usersModel.findById(tokenVerify.id);
             if (!user) return res.status(464).send('User not found');
