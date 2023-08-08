@@ -19,6 +19,7 @@ const userRoute=require('./route/userRoute');
 const contactFormRoutes = require('./route/contactFormRoutes');
 const loginRoute=require('./route/loginRoute');
 const AuthenticateRoute = require('./route/AuthenticationMiddleware');
+const tokenVerify = require('./route/AuthenticationMiddleware');
 
 
 // Db Connection
@@ -78,3 +79,4 @@ app.listen(4000, () => {
     console.log('Server is running on port 4000');
 });
 
+console.log ('Testing token', tokenVerify.id);
