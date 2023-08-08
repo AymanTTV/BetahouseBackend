@@ -8,19 +8,21 @@ const {
     deleteUser
 } = require('../controllers/userController');
 
+const AuthenticateRoute = require('../middleware/AuthenticationMiddleware');
+
 // Get all users
-route.get('/', getUsers);
+route.get('/', AuthenticateRoute(['Admin']), getUsers);
 
 // Get user by ID
-route.get('/:id', getUserById);
+route.get('/:id', AuthenticateRoute(['Admin']), getUserById);
 
 // Create a new user
 route.post('/', createUser);
 
 // Update user by ID
-route.put('/:id', updateUser);
+route.put('/:id', AuthenticateRoute(['Admin']), updateUser);
 
 // Delete user by ID
-route.delete('/:id', deleteUser);
+route.delete('/:id', AuthenticateRoute(['Admin']), deleteUser);
 
 module.exports = route;

@@ -1,5 +1,5 @@
 // Import necessary modules and packages
-const { usersModel } = require('../models/users-model');
+const { usersModel } = require('../models/usersModel');
 const { loginValidation } = require('../validations/loginValidation');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');

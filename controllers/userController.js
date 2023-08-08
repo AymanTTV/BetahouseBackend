@@ -1,4 +1,4 @@
-const { usersModel } = require('../models/users-model');
+const { usersModel } = require('../models/usersModel');
 const { usersValidation } = require('../validations/usersValidation');
 const bcrypt = require('bcrypt');
 
@@ -60,18 +60,17 @@ const updateUser = async (req, res) => {
     try {
         const { id } = req.params;
 
+        // Authorization: Only allow users to update their own profile
+        if (req.userData.id !== id) {
+            return res.status(403).send({
+                status: false,
+                message: 'You are not allowed to update this user'
+            });
+        }
+
         // Validation
         const { error } = usersValidation(req.body);
         if (error) return res.send(error.message);
-
-        // Check if user exists
-        const existingUser = await usersModel.findOne({ email: req.body.email });
-        if (!existingUser) {
-            return res.status(409).send({
-                status: false,
-                message: 'User not found'
-            });
-        }
 
         // Update user data
         req.body.password = await bcrypt.hash(req.body.password, 10);
