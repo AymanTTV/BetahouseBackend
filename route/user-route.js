@@ -1,6 +1,6 @@
 const express=require('express');
 const route=express.Router();
-const { get, Post ,Put,getaById,Delete}=require('../controllers/user-controller');
+const { get, Post ,Put,getaById,Delete}=require('../controllers/userController');
 //get user data
 route.get('/',get);
 route.get('/:id',getaById);

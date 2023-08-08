@@ -61,6 +61,9 @@ app.get('/', (req, res) => {
         { url: '/xogtaShirkada', description: 'XogtaShirkada routes' },
         { url: '/about', description: 'About routes' },
         { url: '/contactForm', description: 'ContactForm routes' },
+        { url: '/client', description: 'client routes' },
+        { url: '/service', description: 'service routes' },
+        { url: '/login', description: 'login routes' },
     ];
 
     const routeList = routes.map(route => `<li><a href="${route.url}">${route.description}</a></li>`);

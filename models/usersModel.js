@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// Define the user schema
 const usersSchema = new mongoose.Schema({
     id: {
         type: Number,
@@ -14,11 +15,22 @@ const usersSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    address: String,
-    gender: String,
-    userPower: String,
+    password: {
+        type: String,
+        required: true,
+    },
+    status: {
+        type: String,
+        enum: ['active', 'pending'],
+        default: 'active',
+    },
+    role: {
+        type: String,
+        required: true,
+    },
 });
 
+// Create the UserModel based on the usersSchema
 const UserModel = mongoose.model('User', usersSchema, 'users');
 
 module.exports = UserModel;

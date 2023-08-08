@@ -1,51 +1,57 @@
-
+// Import necessary modules and packages
 const { usersModel } = require('../models/users-model');
-const { loginValidation } = require('../validations/login-validation');
-const bcrypt=require('bcrypt');
-let jwt = require('jsonwebtoken');
-require('dotenv').config();
+const { loginValidation } = require('../validations/loginValidation');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+require('dotenv').config(); // Load environment variables from .env file
+// const TOKEN_SECRET = require('../env');
 
-//login function
+// Login function
 const login = async (req, res) => {
     try {
-        // validation
+        // Validate user input using Joi schema
         const { error } = loginValidation(req.body);
-        if (error) return res.status(449).send(error.message);
-    
-        // find user data
-        const usergetdata = await usersModel.findOne({
+        if (error) {
+            return res.status(449).send(error.message);
+        }
+
+        // Find user data based on the provided email
+        const userGetData = await usersModel.findOne({
             email: req.body.email,
         });
-        if (!usergetdata)
+        if (!userGetData) {
             return res.status(401).send({
                 status: false,
-                message: 'username or password is incorrect',
+                message: 'Username or password is incorrect',
             });
-    
-        // check password
-        const checkpass = await bcrypt.compare(
+        }
+
+        // Check if the provided password matches the stored hashed password
+        const isPasswordValid = await bcrypt.compare(
             req.body.password,
-            usergetdata.password
+            userGetData.password
         );
-        if (!checkpass)
+        if (!isPasswordValid) {
             return res.status(401).send({
-                status:false,
-                message: 'username or password is incorrect',
+                status: false,
+                message: 'Username or password is incorrect',
             });
-        // token using jwt
+        }
+
+        // Generate JWT token with user data (id, name, role)
         const token = jwt.sign(
             {
-                id: usergetdata._id,
-                name: usergetdata.name,
-                role:usergetdata.role
+                id: userGetData._id,
+                name: userGetData.name,
+                role: userGetData.role,
             },
-            token
+            token // use the token secret from environment variables
         );
-        
-    
+
+        // Respond with success and include the generated token in the header and body
         res.status(200).header('token', token).json({
             status: true,
-            message: 'successfully logged in',
+            message: 'Successfully logged in',
             token: token,
         });
     } catch (error) {
@@ -53,4 +59,4 @@ const login = async (req, res) => {
     }
 };
 
-module.exports = {login};
+module.exports = { login };
