@@ -51,7 +51,7 @@ app.use('/client',ourClientRoute);
 
 app.use('/xogtaShirkada', xogtaShirkadaRoutes);
 app.use('/about', aboutRoutes);
-app.use('/users',AuthenticateRoute(['Admin']),userRoute);
+app.use('/users',userRoute);
 app.use('/contactForm', contactFormRoutes);
 app.use('/login',loginRoute);
 

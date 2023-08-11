@@ -1,10 +1,7 @@
-// Import necessary modules and packages
 const { usersModel } = require('../models/usersModel');
 const { loginValidation } = require('../validations/loginValidation');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-require('dotenv').config(); // Load environment variables from .env file
-// const TOKEN_SECRET = require('../env');
 
 // Login function
 const login = async (req, res) => {
@@ -38,6 +35,8 @@ const login = async (req, res) => {
             });
         }
 
+        const SECRET_KEY = 'cbc1dcd368c08886addf599bf78dcaa679b5ede00ee9ed3be5259193fdd0bfc40fb81d5f33abdd3de6c4418db150b2dc474ae1d1a01e92d1e9765c86befd860a'; // Use the SECRET_KEY from .env
+
         // Generate JWT token with user data (id, name, role)
         const token = jwt.sign(
             {
@@ -45,11 +44,12 @@ const login = async (req, res) => {
                 name: userGetData.name,
                 role: userGetData.role,
             },
-            token // use the token secret from environment variables
+            SECRET_KEY,
+            { expiresIn: '1h' } // Set expiration time as needed
         );
 
         // Respond with success and include the generated token in the header and body
-        res.status(200).header('token', token).json({
+        res.status(200).header('Authorization', `Bearer ${token}`).json({
             status: true,
             message: 'Successfully logged in',
             token: token,

@@ -21,6 +21,7 @@ const userSchema=mongoose.Schema({
     },
     role:{
         type:String,
+        enum:['superAdmin','Admin','customercare',],
         required:true
     },
     
