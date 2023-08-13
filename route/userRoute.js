@@ -11,7 +11,7 @@ const {
 const AuthenticateRoute = require('../route/AuthenticationMiddleware');
 
 // Get all users
-route.get('/', AuthenticateRoute(['Admin']), getUsers);
+route.get('/', getUsers);
 
 // Get user by ID
 route.get('/:id', AuthenticateRoute(['Admin']), getUserById);
