@@ -46,7 +46,7 @@ database();
 
 app.use('/guriyaha', guriyahaRoutes);
 app.use('/images', imagesRoutes);
-app.use('/service',AuthenticateRoute(['CustomerCare','Admin']),serviceRoute);
+app.use('/service',serviceRoute);
 app.use('/client',ourClientRoute);
 
 app.use('/xogtaShirkada', xogtaShirkadaRoutes);
