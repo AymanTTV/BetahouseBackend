@@ -52,6 +52,7 @@ const login = async (req, res) => {
         // Respond with success and include the generated token in the header and body
         res.status(200).header('Authorization', `Bearer ${token}`).json({
             status: true,
+            email:userGetData.email,
             token: token,
         });
     } catch (error) {
