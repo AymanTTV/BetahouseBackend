@@ -17,7 +17,7 @@ route.get('/', getUsers);
 route.get('/:id', AuthenticateRoute(['Admin']), getUserById);
 
 // Create a new user
-route.post('/', createUser);
+route.post('/', AuthenticateRoute(['Admin']), createUser);
 
 // Update user by ID
 route.put('/:id', AuthenticateRoute(['Admin']), updateUser);
