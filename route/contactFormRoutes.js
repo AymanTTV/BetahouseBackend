@@ -12,7 +12,7 @@ router.get('/:id', contactFormController.getContactFormById);
 router.post('/', contactFormController.createContactForm);
 
 // PUT - Update an existing ContactForm entry
-router.put('/:id', contactFormController.updateContactForm);
+router.put('/:id',  contactFormController.updateContactForm);
 
 // DELETE - Delete a ContactForm entry
 router.delete('/:id', contactFormController.deleteContactForm);

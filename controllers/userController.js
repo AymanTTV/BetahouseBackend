@@ -16,7 +16,13 @@ const getUsers = async (req, res) => {
 const getUserById = async (req, res) => {
     try {
         const { id } = req.params;
-        const personalData = await usersModel.findById(id);
+        const personalData = await usersModel.findOne({ id });
+        if (!personalData) {
+            return res.status(404).send({
+                status: false,
+                message: 'User not found'
+            });
+        }
         res.status(200).send(personalData);
     } catch (error) {
         res.status(400).send(error.message);
@@ -28,11 +34,7 @@ const createUser = async (req, res) => {
     try {
         // Validation
         const { error } = usersValidation(req.body);
-        if (error) return res.status(405).send(error.message);
-
-        // Hash password and save user data
-        const postData = new usersModel(req.body);
-        postData.password = await bcrypt.hash(postData.password, 10);
+        if (error) return res.status(400).send(error.message);
 
         // Check if user already exists
         const existingUser = await usersModel.findOne({ email: req.body.email });
@@ -42,6 +44,10 @@ const createUser = async (req, res) => {
                 message: 'This user already exists'
             });
         }
+
+        // Hash password and save user data
+        const postData = new usersModel(req.body);
+        postData.password = await bcrypt.hash(postData.password, 10);
 
         // Save user data
         await postData.save();
@@ -61,7 +67,7 @@ const updateUser = async (req, res) => {
         const { id } = req.params;
 
         // Authorization: Only allow users to update their own profile
-        if (req.userData.id !== id) {
+        if (req.userData.id !== Number(id)) {
             return res.status(403).send({
                 status: false,
                 message: 'You are not allowed to update this user'
@@ -70,11 +76,17 @@ const updateUser = async (req, res) => {
 
         // Validation
         const { error } = usersValidation(req.body);
-        if (error) return res.send(error.message);
+        if (error) return res.status(400).send(error.message);
 
         // Update user data
         req.body.password = await bcrypt.hash(req.body.password, 10);
-        const updatedData = await usersModel.findByIdAndUpdate(id, req.body, { new: true });
+        const updatedData = await usersModel.findOneAndUpdate({ id: Number(id) }, req.body, { new: true });
+        if (!updatedData) {
+            return res.status(404).send({
+                status: false,
+                message: 'User not found'
+            });
+        }
         res.status(200).send({
             status: true,
             message: 'User updated successfully',
@@ -90,7 +102,13 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
     try {
         const { id } = req.params;
-        const deletedData = await usersModel.findByIdAndDelete(id);
+        const deletedData = await usersModel.findOneAndDelete({ id: Number(id) });
+        if (!deletedData) {
+            return res.status(404).send({
+                status: false,
+                message: 'User not found'
+            });
+        }
         res.status(200).send({
             status: true,
             message: 'User deleted successfully',
